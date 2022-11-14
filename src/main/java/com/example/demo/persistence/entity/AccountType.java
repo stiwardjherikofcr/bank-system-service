@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountType implements Serializable{
+public class AccountType implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

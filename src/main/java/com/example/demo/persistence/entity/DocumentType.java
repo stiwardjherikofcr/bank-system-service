@@ -17,17 +17,17 @@ import java.util.List;
 @Builder
 public class DocumentType implements Serializable {
 
-        private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id_document_type")
-        private Long idDocumentType;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_document_type")
+    private Long idDocumentType;
 
-        @Column(nullable = false, length = 50)
-        private String name;
+    @Column(nullable = false, length = 50)
+    private String name;
 
-        @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentType")
-        private List<Customer> customersList;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentType")
+    private List<Customer> customersList;
+    
 }

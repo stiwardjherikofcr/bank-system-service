@@ -25,12 +25,12 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping(value = "")
-    public ResponseEntity<List<CustomerResponse>> findAll(@RequestParam(name = "documentTypeId", required = false) Long documentTypeId){
-        try{
+    public ResponseEntity<List<CustomerResponse>> findAll(@RequestParam(name = "documentTypeId", required = false) Long documentTypeId) {
+        try {
             List<CustomerDto> customerDtoList = new ArrayList<>();
-            if(documentTypeId == null){
+            if (documentTypeId == null) {
                 customerDtoList = customerService.findAll();
-            }else{
+            } else {
                 customerDtoList = customerService.findByDocumentType(DocumentTypeDto.builder().idDocumentType(documentTypeId).build());
             }
             List<CustomerResponse> customerResponseList = new ArrayList<>();
@@ -38,50 +38,50 @@ public class CustomerController {
                 customerResponseList.add(modelMapper.map(customerDto, CustomerResponse.class));
             });
             return ResponseEntity.ok(customerResponseList);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CustomerResponse> findById(@RequestParam(name = "id") Long id){
-        try{
+    public ResponseEntity<CustomerResponse> findById(@RequestParam(name = "id") Long id) {
+        try {
             CustomerDto customerDto = customerService.findById(id);
             CustomerResponse customerResponse = modelMapper.map(customerDto, CustomerResponse.class);
             return ResponseEntity.ok(customerResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<CustomerResponse> create(@RequestBody CustomerDto customerDto){
-        try{
+    public ResponseEntity<CustomerResponse> create(@RequestBody CustomerDto customerDto) {
+        try {
             CustomerDto customerDtoSaved = customerService.create(customerDto);
             CustomerResponse customerResponse = modelMapper.map(customerDtoSaved, CustomerResponse.class);
             return ResponseEntity.ok(customerResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CustomerResponse> update(@RequestBody CustomerDto customerDto){
-        try{
+    public ResponseEntity<CustomerResponse> update(@RequestBody CustomerDto customerDto) {
+        try {
             CustomerDto customerDtoSaved = customerService.update(customerDto);
             CustomerResponse customerResponse = modelMapper.map(customerDtoSaved, CustomerResponse.class);
             return ResponseEntity.ok(customerResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<CustomerResponse> delete(@PathVariable(name = "id") Long id){
-        try{
+    public ResponseEntity<CustomerResponse> delete(@PathVariable(name = "id") Long id) {
+        try {
             customerService.delete(id);
             return ResponseEntity.ok().build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
     }

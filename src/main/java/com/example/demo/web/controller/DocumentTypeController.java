@@ -26,74 +26,74 @@ public class DocumentTypeController {
     private DocumentTypeService documentTypeService;
 
     @GetMapping(value = "")
-    public ResponseEntity<List<DocumentTypeResponse>> findAll(){
-        try{
+    public ResponseEntity<List<DocumentTypeResponse>> findAll() {
+        try {
             List<DocumentTypeDto> documentTypeDtoList = documentTypeService.findAll();
             List<DocumentTypeResponse> documentTypeResponseList = new ArrayList<>();
             documentTypeDtoList.forEach(tipoDocumentoDto -> {
                 documentTypeResponseList.add(modelMapper.map(tipoDocumentoDto, DocumentTypeResponse.class));
             });
-            if(documentTypeDtoList.isEmpty()){
+            if (documentTypeDtoList.isEmpty()) {
                 return ResponseEntity.noContent().build();
             }
             return ResponseEntity.ok(documentTypeResponseList);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<DocumentTypeResponse> findById(@PathVariable Long id){
-        try{
+    public ResponseEntity<DocumentTypeResponse> findById(@PathVariable Long id) {
+        try {
             DocumentTypeDto documentTypeDto = documentTypeService.findById(id);
-            if(documentTypeDto == null){
+            if (documentTypeDto == null) {
                 return ResponseEntity.notFound().build();
             }
             DocumentTypeResponse documentTypeResponse = modelMapper.map(documentTypeDto, DocumentTypeResponse.class);
             return ResponseEntity.ok(documentTypeResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<DocumentTypeResponse> create(@RequestBody DocumentTypeRequest tipoDocumento){
-        try{
+    public ResponseEntity<DocumentTypeResponse> create(@RequestBody DocumentTypeRequest tipoDocumento) {
+        try {
             DocumentTypeDto documentTypeDto = modelMapper.map(tipoDocumento, DocumentTypeDto.class);
             documentTypeDto = documentTypeService.create(documentTypeDto);
             DocumentTypeResponse documentTypeResponse = modelMapper.map(documentTypeDto, DocumentTypeResponse.class);
             return ResponseEntity.ok(documentTypeResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<DocumentTypeResponse> update(@RequestBody DocumentTypeResponse tipoDocumento){
-        try{
+    public ResponseEntity<DocumentTypeResponse> update(@RequestBody DocumentTypeResponse tipoDocumento) {
+        try {
             DocumentTypeDto documentTypeDto = modelMapper.map(tipoDocumento, DocumentTypeDto.class);
             documentTypeDto = documentTypeService.update(documentTypeDto);
-            if(documentTypeDto == null){
+            if (documentTypeDto == null) {
                 return ResponseEntity.notFound().build();
             }
             DocumentTypeResponse documentTypeResponse = modelMapper.map(documentTypeDto, DocumentTypeResponse.class);
             return ResponseEntity.ok(documentTypeResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<DocumentTypeResponse> delete(@PathVariable Long id){
-        try{
+    public ResponseEntity<DocumentTypeResponse> delete(@PathVariable Long id) {
+        try {
             DocumentTypeDto documentTypeDto = documentTypeService.findById(id);
-            if(documentTypeDto == null){
+            if (documentTypeDto == null) {
                 return ResponseEntity.notFound().build();
             }
             documentTypeService.delete(id);
             DocumentTypeResponse documentTypeResponse = modelMapper.map(documentTypeDto, DocumentTypeResponse.class);
             return ResponseEntity.ok(documentTypeResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
