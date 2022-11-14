@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 @Entity
 @Table(name = "tbl_account_types")
 @Getter
